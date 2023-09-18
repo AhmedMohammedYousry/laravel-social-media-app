@@ -18,7 +18,7 @@ class FileController extends Controller
             $fileNameOnly = pathinfo($completeFileName,PATHINFO_FILENAME );
             $extension = $request->file('image')->getClientOriginalExtension();
             $compPic = str_replace(' ','_',$fileNameOnly). '-' .rand(). '_' . time() . '.' . $extension;
-            $path = $request->file('image')->storeAs('public/posts',$compPic);
+            $path = $request->file('image')->storeAs('posts/',$compPic, 's3');
 
         }
     }
@@ -38,7 +38,7 @@ class FileController extends Controller
                 'user_id' => $userid,
                 'profilePic' => $compPic,
             ]);
-            $path = $request->file('image')->storeAs('public/profiles',$compPic);
+            $path = $request->file('image')->storeAs('profiles/',$compPic, 's3');
         }
     }
 
@@ -73,7 +73,7 @@ class FileController extends Controller
                 'user_id' => $userid,
                 'coverPic' => $compPic,
             ]);
-            $path = $request->file('image')->storeAs('public/covers',$compPic);
+            $path = $request->file('image')->storeAs('covers/',$compPic, 's3');
         }
     }
 
@@ -89,7 +89,7 @@ class FileController extends Controller
             $compPic = str_replace(' ','_',$fileNameOnly). '-' .rand(). '_' . time() . '.' . $extension;
             $page->update(['profile_image' =>  $compPic]);
             
-            $path = $request->file('image')->storeAs('public/pages',$compPic);
+            $path = $request->file('image')->storeAs('pages/',$compPic, 's3');
         }
     }
 
@@ -105,7 +105,7 @@ class FileController extends Controller
             $compPic = str_replace(' ','_',$fileNameOnly). '-' .rand(). '_' . time() . '.' . $extension;
             $page->update(['cover_image' =>  $compPic]);
             
-            $path = $request->file('imageCover')->storeAs('public/pages/covers',$compPic);
+            $path = $request->file('imageCover')->storeAs('pages/covers/',$compPic, 's3');
         }
     }
 }
